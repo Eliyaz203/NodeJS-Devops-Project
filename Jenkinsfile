@@ -5,7 +5,7 @@ agent any
 stages{
     stage('CodeCheckOut'){
         steps{
-            checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Eliyaz203/NodeJS-Devops-Project.git']])
+            git branch: 'main', credentialsId: '618d965c-04bb-4e9a-964f-f8eae6852d39', url: 'https://github.com/Eliyaz203/NodeJS-Devops-Project.git'
         }
     }
     stage('DockerBuild'){
