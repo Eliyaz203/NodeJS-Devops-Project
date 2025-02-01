@@ -10,19 +10,20 @@ stages{
     }
     stage('DockerBuild'){
         steps{
-            sh "docker build -t mohammedeliyaz/nodejs-app:${BUILD_NUMBER} ."
+            sh "docker build -t mohammedeliyaz/node-js-app:${BUILD_NUMBER} ."
         }
     }
     stage('DockerPush'){
         steps{
-            sh "docker push mohammedeliyaz/nodejs-app:${BUILD_NUMBER}"
+            sh "docker push mohammedeliyaz/node-js-app:${BUILD_NUMBER}"
+            sh "pwd"
         }
     }
     stage('K8s Deploy'){
         steps{
-            sh "sed -i 's|mohammedeliyaz/nodejs-app:.*|mohammedeliyaz/nodejs-app:${BUILD_NUMBER}|' deployment.yaml"
+            sh "sed -i 's|mohammedeliyaz/node-js-app:.*|mohammedeliyaz/node-js-app:${BUILD_NUMBER}|' deployment.yaml"
             sh "kubectl apply -f deployment.yaml"
-            sh "kubectl apply -f services.yaml"
+            sh "kubectl apply -f service.yaml"
         }
     }
         
